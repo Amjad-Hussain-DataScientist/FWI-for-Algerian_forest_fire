@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>FWI Predictor</title>
+    <style>
+        /* Basic styling for the form */
+        .container { max-width: 500px; margin: 50px auto; padding: 20px; border: 1px solid #ccc; }
+        .form-group { margin-bottom: 15px; }
+        label { display: block; margin-bottom: 5px; }
+        input, select { width: 100%; padding: 8px; box-sizing: border-box; }
+        .result-box { margin-top: 20px; padding: 15px; background-color: #e9ecef; border: 1px solid #ced4da; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Predict Fire Weather Index (FWI)</h1>
+
+        <!-- The HTML Form -->
+        <!-- The 'action' attribute points back to the Flask route we created -->
+        <!-- The 'method' attribute is set to POST -->
+        <form action="/predictdata" method="POST">
+            <div class="form-group">
+                <label for="Temperature">Temperature (°C):</label>
+                <input type="number" step="0.1" id="Temperature" name="Temperature" required>
+            </div>
+            <div class="form-group">
+                <label for="RH">Relative Humidity (%):</label>
+                <input type="number" step="0.1" id="RH" name="RH" required>
+            </div>
+            <div class="form-group">
+                <label for="Ws">Wind Speed (km/h):</label>
+                <input type="number" step="0.1" id="Ws" name="Ws" required>
+            </div>
+             <div class="form-group">
+                <label for="Rain">Rain (mm/m²):</label>
+                <input type="number" step="0.1" id="Rain" name="Rain" required>
+            </div>
+             <div class="form-group">
+                <label for="FFMC">FFMC (Fine Fuel Moisture Code):</label>
+                <input type="number" step="0.1" id="FFMC" name="FFMC" required>
+            </div>
+             <div class="form-group">
+                <label for="DMC">DMC (Duff Moisture Code):</label>
+                <input type="number" step="0.1" id="DMC" name="DMC" required>
+            </div>
+            <div class="form-group">
+                <label for="ISI">ISI (Initial Spread Index):</label>
+                <input type="number" step="0.1" id="ISI" name="ISI" required>
+            </div>
+
+
+            <!-- NEW: Dropdown for 'Classes' -->
+            <div class="form-group">
+                <label for="Classes">Classes (Fire Status):</label>
+                <select id="Classes" name="Classes">
+                    <option value="0">Not Fire</option>
+                    <option value="1">Fire</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="Region">Region:</label>
+                <!-- Assuming you have two regions to select -->
+                <select id="Region" name="Region">
+                    <option value="0">Region A (e.g., Bejaia region)</option>
+                    <option value="1">Region B (e.g., Sidi-Bel Abbes region)</option>
+                </select>
+            </div>
+
+            <button type="submit">Predict FWI</button>
+        </form>
+
+        <!-- Jinja Template Syntax: This displays the result if the 'result' variable exists -->
+        {% if results %}
+            <div class="result-box">
+                <h2>Prediction Result:</h2>
+                <p>{{ results }}</p>
+            </div>
+        {% endif %}
+
+    </div>
+      <footer class="footer">
+        <p>&#169; 2025 Web Application & model| Developed by **Amjad Hussain[Data Scientist & ML Engineer**</p>
+    </footer>
+
+
+</body>
+</html>
